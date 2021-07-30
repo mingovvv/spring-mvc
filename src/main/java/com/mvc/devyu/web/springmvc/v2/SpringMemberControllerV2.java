@@ -1,4 +1,4 @@
-package com.mvc.devyu.web.springmvc.v1;
+package com.mvc.devyu.web.springmvc.v2;
 
 import com.mvc.devyu.domain.member.Member;
 import com.mvc.devyu.domain.member.MemberRepository;
@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
-/**
- * @Controller spring bean 등록
- * spring MVC에서 애노테이션 기반 컨트롤러로 인식함
- *
- * @Controller = @RequestMapping + @Component
- * 'RequestMappingHandlerMapping' 은 스프링 빈 중에서 @RequestMapping 또는 @Controller가 class level에 붙어 있는 경우에 매핑 정보로 인식한다.
- */
 @Controller
-public class SpringMemberSaveControllerV1 {
+@RequestMapping("/springmvc/v2/members")
+public class SpringMemberControllerV2 {
 
-    private MemberRepository memberRepository = MemberRepository.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
 
-    @RequestMapping("/springmvc/v1/members/save")
-    public ModelAndView process(HttpServletRequest request) {
+    @RequestMapping("/new-form")
+    public ModelAndView newForm() {
+        return new ModelAndView("new-form");
+    }
+
+    @RequestMapping("/save")
+    public ModelAndView save(HttpServletRequest request) {
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
 
@@ -31,4 +31,12 @@ public class SpringMemberSaveControllerV1 {
         return modelAndView;
     }
 
+    @RequestMapping
+    public ModelAndView members() {
+        List<Member> members = memberRepository.findAll();
+
+        ModelAndView mv = new ModelAndView("members");
+        mv.addObject("members", members);
+        return mv;
+    }
 }
