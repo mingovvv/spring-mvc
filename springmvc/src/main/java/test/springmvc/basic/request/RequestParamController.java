@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import test.springmvc.basic.HelloData;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,6 +86,36 @@ public class RequestParamController {
     @RequestMapping("/request-param-map")
     public String requestParamDafaultValue(@RequestParam Map<String, Object> map) {
         log.info("username = [{}], age = [{}]", map.get("username"), map.get("age"));
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@RequestParam String username, @RequestParam int age) {
+        HelloData helloData = new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);
+        log.info("helloDate = [{}]", helloData);
+        return "ok";
+    }
+
+    /**
+     * 요청 파라미터의 이름으로 객체의 프로퍼티를 찾는다. 해당 프로퍼티의 setter를 호출해서 전달받은 파라미터의 값을 바인딩 해줌
+     *
+     * 프로퍼티? : 객체의 필드가 게터와 세터 메서드가 존재하면 해당 필드는 프로퍼티를 가지고 있다고 표현함
+     *
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1.5")
+    public String modelAttributeV15(@ModelAttribute HelloData helloData) {
+        log.info("helloDate = [{}]", helloData);
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("helloDate = [{}]", helloData);
         return "ok";
     }
 
