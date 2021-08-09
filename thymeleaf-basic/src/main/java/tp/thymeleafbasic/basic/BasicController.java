@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,6 +55,33 @@ public class BasicController {
     public String basicObject(HttpSession httpSession) {
         httpSession.setAttribute("sessionData", "SESSION TEST");
         return "basic/basic-objects";
+    }
+
+    @GetMapping("/date")
+    public String date(Model model) {
+        model.addAttribute("localDateTime", LocalDateTime.now());
+        return "basic/date";
+    }
+
+    @GetMapping("/link")
+    public String link(Model model) {
+        model.addAttribute("param1", "date1");
+        model.addAttribute("param2", "date2");
+        return "basic/link";
+    }
+
+    @GetMapping("/literal")
+    public String literal(Model model) {
+        model.addAttribute("data", "Spring!");
+        model.addAttribute("param2", "date2");
+        return "basic/literal";
+    }
+
+    @GetMapping("/operation")
+    public String operation(Model model) {
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "Spring!");
+        return "basic/operation";
     }
 
     @Component("helloBean")
