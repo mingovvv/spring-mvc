@@ -1,9 +1,18 @@
 package tp.thymeleafbasic.basic;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/basic")
@@ -27,6 +36,38 @@ public class BasicController {
     public String textUnescaped(Model model) {
         model.addAttribute("data", "<b>Hellooooooooo !</b>");
         return "basic/text-unescaped";
+    }
+
+    @GetMapping("/variable")
+    public String variable(Model model) {
+        ArrayList<User> list = new ArrayList<>(Arrays.asList(new User("userA", 10), new User("userB", 20)));
+        Map<String, User> map = Map.of("userA", new User("userA", 10), "userB", new User("userB", 20));
+
+        model.addAttribute("user", new User("userA", 10));
+        model.addAttribute("users", list);
+        model.addAttribute("userMap", map);
+
+        return "basic/variable";
+    }
+
+    @GetMapping("/basic-objects")
+    public String basicObject(HttpSession httpSession) {
+        httpSession.setAttribute("sessionData", "SESSION TEST");
+        return "basic/basic-objects";
+    }
+
+    @Component("helloBean")
+    static class TestBean {
+        public String hello(String data) {
+            return "BEAN TEST" + data;
+        }
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class User {
+        private String username;
+        private int age;
     }
 
 }
