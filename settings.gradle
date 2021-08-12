@@ -1,1 +1,3 @@
-rootProject.name = 'devyu'
+rootProject.name = 'mvc'
+
+include 'validation'
