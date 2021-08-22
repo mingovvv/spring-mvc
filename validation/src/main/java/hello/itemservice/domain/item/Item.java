@@ -13,14 +13,15 @@ import javax.validation.constraints.NotNull;
 // 제약이 많고 기능이 부족하기 때문에 실제 권장되지 않는 방식.
 public class Item {
 
+//    @NotNull(groups = UpdateCheck.class) // 수정 요구사항 추가
     private Long id;
-    @NotBlank // 빈값 + 공백
+//    @NotBlank(groups = {UpdateCheck.class, SaveCheck.class}) // 빈값 + 공백
     private String itemName;
-    @NotNull
-    @Range(min = 1000, max = 1000000)
+//    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+//    @Range(min = 1000, max = 1000000)
     private Integer price;
-    @NotNull
-    @Max(9999)
+//    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+//    @Max(value = 9999, groups = SaveCheck.class) // 수정 요구사항 추가
     private Integer quantity;
 
     public Item() {
