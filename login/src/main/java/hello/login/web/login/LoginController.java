@@ -105,7 +105,7 @@ public class LoginController {
         // ** 사용자의 request 정보를 가지고 key를 생성. 해당 *key*를 클라이언트를 위해 쿠키에 담아 응답까지 하는 역할
 
         // ** 세션에 로그인 회원 정보를 보관 : 세션에 저장하는 것 : 생성한 key에 value를 매핑하는 것 : "login-member" 는 단순 상수값이며 일종의 폴더이름 같은 것(로그인 맴버를 위한 상수값이구나 !)
-//        session.setAttribute("login-member", loginMember);
+        session.setAttribute("login-member", loginMember);
 
         return "redirect:/";
 
