@@ -85,7 +85,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public String loginV3(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
-
+        log.info("logV3");
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
         }
