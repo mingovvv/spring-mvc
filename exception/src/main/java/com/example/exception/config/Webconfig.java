@@ -2,6 +2,7 @@ package com.example.exception.config;
 
 import com.example.exception.filter.LogFilter;
 import com.example.exception.resolver.MyHandlerExceptionResolver;
+import com.example.exception.resolver.UserHandlerExceptionResolver;
 import hello.login.web.interceptor.LogInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ public class Webconfig implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 
     //    @Bean
